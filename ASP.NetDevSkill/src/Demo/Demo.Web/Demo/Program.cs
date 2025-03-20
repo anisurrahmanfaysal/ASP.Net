@@ -46,6 +46,11 @@ try
         .ReadFrom.Configuration(builder.Configuration)
     );
     #endregion
+
+    #region Docker IP Correction
+    builder.WebHost.UseUrls("http://*:80");
+    #endregion
+
     builder.Services.AddDbContext<ApplicationDbContext>(options =>
         options.UseSqlServer(connectionString));
     builder.Services.AddDatabaseDeveloperPageExceptionFilter();
