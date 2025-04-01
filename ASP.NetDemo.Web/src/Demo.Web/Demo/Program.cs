@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Serilog.Events;
 
+#region Bootstrap Logger
 var configuration = new ConfigurationBuilder()
     .SetBasePath(Directory.GetCurrentDirectory())
     .AddJsonFile("appsettings.json")
@@ -16,7 +17,7 @@ var configuration = new ConfigurationBuilder()
 Log.Logger = new LoggerConfiguration()
     .ReadFrom.Configuration(configuration)
     .CreateBootstrapLogger();
-
+#endregion
 try
 {
     Log.Information("Application Starting...");
@@ -27,7 +28,7 @@ try
     builder.Services.AddDbContext<ApplicationDbContext>(options =>
         options.UseSqlServer(connectionString));
 
-    #region Autofac
+    #region Autofac Dependance Injection
     builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory()); //Added Autofac
     builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
     {
@@ -49,7 +50,7 @@ try
         .AddEntityFrameworkStores<ApplicationDbContext>();
     builder.Services.AddControllersWithViews();
 
-    #region Dependance Injection
+    #region Service Collection Dependance Injection
     // life time instance.
     //builder.Services.AddSingleton<IItem, Item>();
     // Every time new instance.
