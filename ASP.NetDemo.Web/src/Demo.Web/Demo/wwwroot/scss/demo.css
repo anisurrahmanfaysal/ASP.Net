@@ -3,9 +3,19 @@
 }
 
 .primarybtn {
-  width: 200px;
+  width: 300px;
 }
 
 .secondbtn {
-  width: 200px;
+  width: 300px;
+}
+
+div {
+  background-color: red;
+}
+div button {
+  background-color: green;
+}
+div button:hover {
+  background-color: blue;
 }
