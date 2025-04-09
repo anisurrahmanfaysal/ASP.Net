@@ -1,4 +1,4 @@
-﻿using Demo.Models.Demo;
+﻿using Demo.Models.Demo.Web;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Demo.Controllers
