@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Demo.Infrastructure.Repositories
 {
-    public class BookRepository : Repository<Book,Guid>
+    public class BookRepository : Repository<Book,Guid> , IBookRepository
     {
         private readonly ApplicationDbContext _dbContext;
 
