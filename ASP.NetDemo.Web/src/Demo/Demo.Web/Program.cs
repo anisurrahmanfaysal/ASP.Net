@@ -1,12 +1,12 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Demo;
-using Demo.Data;
-using Demo.Models;
+using Demo.Infrastructure;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Serilog.Events;
+using System.Reflection;
 
 #region Bootstrap Logger
 var configuration = new ConfigurationBuilder()
@@ -25,14 +25,16 @@ try
 
     // Add services to the container.
     var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+    var migrationAssembly = Assembly.GetExecutingAssembly();
+
     builder.Services.AddDbContext<ApplicationDbContext>(options =>
-        options.UseSqlServer(connectionString));
+        options.UseSqlServer(connectionString, (x) => x.MigrationsAssembly(migrationAssembly)));
 
     #region Autofac Dependance Injection
     builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory()); //Added Autofac
     builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
     {
-        containerBuilder.RegisterModule(new WebModule());
+        containerBuilder.RegisterModule(new WebModule(connectionString, migrationAssembly?.FullName));
     }); // Autofac configuration.
     #endregion
 

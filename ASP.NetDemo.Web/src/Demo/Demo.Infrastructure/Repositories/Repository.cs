@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Demo.Infrastructure.Repositories
 {
-    public class Repository<T,G> : IRepository<T,G> where T : IEntity<G>
+    public abstract class Repository<T,G> : IRepository<T,G> where T : IEntity<G>
     {
         private readonly DbContext _dbContext;
 

@@ -1,5 +1,5 @@
 using System.Diagnostics;
-using Demo.Models;
+using Demo.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Demo.Controllers

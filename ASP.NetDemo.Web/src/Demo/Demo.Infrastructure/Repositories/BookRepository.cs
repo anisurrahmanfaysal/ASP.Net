@@ -18,6 +18,7 @@ namespace Demo.Infrastructure.Repositories
         {
             _dbContext = dbContext;
         }
+
         public List<Book> GetLatestBooks() { 
             DateTime date = DateTime.Now.AddDays(-365);
             return _dbContext.Books.Where(x => x.PublishDate < date).ToList();
