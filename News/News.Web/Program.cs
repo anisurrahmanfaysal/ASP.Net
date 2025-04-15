@@ -4,6 +4,15 @@ using News.Web.Data;
 using Serilog;
 using Serilog.Events;
 
+var configuration = new ConfigurationBuilder()
+                    .SetBasePath(Directory.GetCurrentDirectory())
+                    .AddJsonFile("appsettings.json")
+                    .Build();
+
+Log.Logger = new LoggerConfiguration()
+             .ReadFrom.Configuration(configuration)
+             .CreateBootstrapLogger();
+
 try
 {
     Log.Information("Application Started...");
