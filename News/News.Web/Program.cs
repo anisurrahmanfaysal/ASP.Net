@@ -15,7 +15,7 @@ Log.Logger = new LoggerConfiguration()
 
 try
 {
-    Log.Information("Application Started...");
+    Log.Information("Application Starting...");
     var builder = WebApplication.CreateBuilder(args);
 
     // Add services to the container.
@@ -66,6 +66,7 @@ try
        .WithStaticAssets();
 
     app.Run();
+    Log.Information("Application Started.");
 }
 catch (Exception ex)
 {
