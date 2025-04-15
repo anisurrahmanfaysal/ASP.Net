@@ -18,6 +18,6 @@ namespace Demo.Infrastructure
         }
 
         public IBookRepository BookRepository { get; private set; }
-        public IAuthorRepository AuthorRepository { get; private set; }
+        public IAuthorRepository AuthorRepository { get; private set; } 
     }
 }

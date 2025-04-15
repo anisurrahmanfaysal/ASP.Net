@@ -27,7 +27,7 @@ namespace Demo
                 .WithParameter("migrationAssembly", _migrationAssembly)
                 .InstancePerLifetimeScope();
 
-            builder.RegisterType<IApplicationUnitOfWork>().As<IApplicationUnitOfWork>()
+            builder.RegisterType<ApplicationUnitOfWork>().As<IApplicationUnitOfWork>()
                 .InstancePerLifetimeScope();
             builder.RegisterType<BookRepository>().As<IBookRepository>()
                 .InstancePerLifetimeScope();
