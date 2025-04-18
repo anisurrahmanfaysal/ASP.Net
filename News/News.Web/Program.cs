@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using News.Web.Data;
+using News.Web.Models;
 using Serilog;
 using Serilog.Events;
 
@@ -20,14 +21,20 @@ try
 
     // Add services to the container.
     var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-
+    
+    #region Serilog Configuration
     builder.Host.UseSerilog((context, lc) => lc
         .MinimumLevel.Debug()
         .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
         .Enrich.FromLogContext()
         .ReadFrom.Configuration(builder.Configuration)
     );
+    #endregion
 
+    #region Service Collection Dependency Injection
+    builder.Services.AddKeyedScoped<IProduct, Product1>("Config1");
+    builder.Services.AddKeyedScoped<IProduct, Product2>("Config2");
+    #endregion
     builder.Services.AddDbContext<ApplicationDbContext>(options =>
         options.UseSqlServer(connectionString));
     builder.Services.AddDatabaseDeveloperPageExceptionFilter();
@@ -56,6 +63,11 @@ try
     app.UseAuthorization();
 
     app.MapStaticAssets();
+
+    app.MapControllerRoute(
+        name: "areas",
+        pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}")
+        .WithStaticAssets();
 
     app.MapControllerRoute(
         name: "default",
