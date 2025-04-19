@@ -2,6 +2,7 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Demo;
 using Demo.Infrastructure;
+using Demo.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
@@ -46,10 +47,18 @@ try
         .ReadFrom.Configuration(builder.Configuration)
     );
     #endregion
+
+    #region Identity Configuration
+    builder.Services.AddIdentity();
+    #endregion
+
     builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-    builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-        .AddEntityFrameworkStores<ApplicationDbContext>();
+    #region DefaultIdentity
+    //builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    //    .AddEntityFrameworkStores<ApplicationDbContext>();
+    #endregion
+
     builder.Services.AddControllersWithViews();
 
     #region Service Collection Dependance Injection
@@ -60,6 +69,7 @@ try
     // New request new instance.
     //builder.Services.AddScoped<IItem, Item>();
     #endregion
+    builder.Services.AddRazorPages();
 
     var app = builder.Build();
 

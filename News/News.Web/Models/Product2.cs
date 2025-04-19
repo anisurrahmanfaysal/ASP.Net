@@ -6,5 +6,9 @@
         {
             return 100;
         }
+        public void ServiceCharge()
+        {
+
+        }
     }
 }

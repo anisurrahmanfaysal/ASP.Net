@@ -17,9 +17,11 @@ namespace Demo.Infrastructure.Identity
         public ApplicationSignInManager(UserManager<ApplicationUser> userManager, 
             IHttpContextAccessor contextAccessor, 
             IUserClaimsPrincipalFactory<ApplicationUser> claimsFactory, 
-            IOptions<IdentityOptions> optionsAccessor, ILogger<SignInManager<ApplicationUser>> logger, 
-            IAuthenticationSchemeProvider schemes) 
-            : base(userManager, contextAccessor, claimsFactory, optionsAccessor, logger, schemes)
+            IOptions<IdentityOptions> optionsAccessor, 
+            ILogger<SignInManager<ApplicationUser>> logger, 
+            IAuthenticationSchemeProvider schemes, 
+            IUserConfirmation<ApplicationUser> confirmation) 
+            : base(userManager, contextAccessor, claimsFactory, optionsAccessor, logger, schemes, confirmation)
         {
         }
     }

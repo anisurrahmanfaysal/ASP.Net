@@ -63,7 +63,7 @@ try
     // Transient make sure class create new instace everytime.
     // builder.Services.AddTransient<IItem, Item>();
     // Singleton make sure class create a single instace.
-    // builder.Services.AddSingleton<IItem, Item>();
+    // builder.Services.AddSingleton<IItem, Item>(); 
     // In every https request it will create new instace.
     // builder.Services.AddScoped<IItem, Item>();
 

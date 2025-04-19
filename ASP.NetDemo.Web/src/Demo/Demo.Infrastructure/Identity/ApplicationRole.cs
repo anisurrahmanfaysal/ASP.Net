@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Demo.Infrastructure.Identity
 {
-    public class ApplicationRole : IdentityUser<Guid>
+    public class ApplicationRole : IdentityRole<Guid>
     {
     }
 }

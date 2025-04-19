@@ -4,7 +4,12 @@
     {
         public double GetPrice()
         {
-            return 500;
+            return 0;
+        }
+
+        public void GetDsicount()
+        {
+
         }
     }
 }
