@@ -109,7 +109,7 @@ namespace Demo.Web.Controllers
             model.ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
             model.ReturnUrl = returnUrl;
-            return View();
+            return View(model);
         }
 
         [AllowAnonymous, HttpPost, ValidateAntiForgeryToken]
