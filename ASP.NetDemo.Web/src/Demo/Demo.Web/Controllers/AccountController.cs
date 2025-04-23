@@ -33,7 +33,7 @@ namespace Demo.Web.Controllers
 
         [AllowAnonymous]
 
-        public async Task<IActionResult> Register(string returnUrl = null)
+        public async Task<IActionResult> RegisterAsync(string returnUrl = null)
         {
             var model = new RegisterModel();
             model.ReturnUrl = returnUrl;
@@ -42,7 +42,7 @@ namespace Demo.Web.Controllers
         }
 
         [AllowAnonymous, HttpPost, ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(RegisterModel model)
+        public async Task<IActionResult> RegisterAsync(RegisterModel model)
         {
             model.ReturnUrl ??= Url.Content("~/");
             model.ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
@@ -58,6 +58,9 @@ namespace Demo.Web.Controllers
                 user.LastName = model.LastName;
 
                 var result = await _userManager.CreateAsync(user, model.Password);
+                
+                //Creating Role.
+                await _userManager.AddToRoleAsync(user, "Author");
 
                 if (result.Succeeded)
                 {
@@ -93,7 +96,7 @@ namespace Demo.Web.Controllers
 
         [AllowAnonymous]
 
-        public async Task<IActionResult> Login(string returnUrl = null)
+        public async Task<IActionResult> LoginAsync(string returnUrl = null)
         {
             var model = new LoginModel();
             if (!string.IsNullOrEmpty(model.ErrorMessage))
@@ -113,7 +116,7 @@ namespace Demo.Web.Controllers
         }
 
         [AllowAnonymous, HttpPost, ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginModel model)
+        public async Task<IActionResult> LoginAsync(LoginModel model)
         {
             model.ReturnUrl ??= Url.Content("~/");
 
@@ -144,11 +147,21 @@ namespace Demo.Web.Controllers
             }
             return View(model);
         }
-        [Authorize] 
-        public IActionResult Logout()
+        [Authorize]
+        public async Task<IActionResult> LogoutAsync(string returnUrl = null)
         {
-            return RedirectToAction("Index", "Home");
+            await _signInManager.SignOutAsync();
+            await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
+
+            returnUrl ??= Url.Content("~/");
+
+            return LocalRedirect(returnUrl);
         }
+
+        //public IActionResult AccessDenied()
+        //{
+        //    return View();
+        //}
 
         private ApplicationUser CreateUser()
         {

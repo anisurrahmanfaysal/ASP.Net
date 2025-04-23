@@ -80,6 +80,29 @@ namespace Demo.Data.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("63f5ead6-4119-4063-9f64-82df67de00d4"),
+                            ConcurrencyStamp = "4/19/2025 1:02:01 AM",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = new Guid("4110987a-9f25-4ea0-a3e1-7cd916bad7fa"),
+                            ConcurrencyStamp = "4/19/2025 1:02:03 AM",
+                            Name = "HR",
+                            NormalizedName = "HR"
+                        },
+                        new
+                        {
+                            Id = new Guid("630d47dd-8932-434d-abcd-fcd1ede0e37c"),
+                            ConcurrencyStamp = "4/19/2025 1:02:04 AM",
+                            Name = "Author",
+                            NormalizedName = "AUTHOR"
+                        });
                 });
 
             modelBuilder.Entity("Demo.Infrastructure.Identity.ApplicationRoleClaim", b =>

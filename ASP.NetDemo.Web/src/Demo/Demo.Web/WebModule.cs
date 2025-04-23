@@ -21,7 +21,6 @@ namespace Demo
         }
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<Item>().As<IItem>().InstancePerLifetimeScope();
             builder.RegisterType<ApplicationDbContext>().AsSelf()
                 .WithParameter("connectionString", _connectionString)
                 .WithParameter("migrationAssembly", _migrationAssembly)
