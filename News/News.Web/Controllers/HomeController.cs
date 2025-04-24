@@ -7,17 +7,14 @@ namespace News.Web.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly IProduct _product;
 
-        public HomeController(ILogger<HomeController> logger, [FromKeyedServices("Config1")] IProduct product)
+        public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
-            _product = product;
         }
 
         public IActionResult Index()
         {
-            var price = _product.GetPrice();
             return View();
         }
 

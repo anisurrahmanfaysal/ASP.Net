@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Note.Infrastructure.Repositories
 {
-    public class BookRepository : Repository<Book, Guid>
+    public class BookRepository : Repository<Book, Guid> , IBookRepository
     {
         private readonly ApplicationDbContext _dbContext;
         public BookRepository(ApplicationDbContext context)

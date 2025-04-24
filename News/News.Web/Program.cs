@@ -32,8 +32,6 @@ try
     #endregion
 
     #region Service Collection Dependency Injection
-    builder.Services.AddKeyedScoped<IProduct, Product1>("Config1");
-    builder.Services.AddKeyedScoped<IProduct, Product2>("Config2");
     #endregion
     builder.Services.AddDbContext<ApplicationDbContext>(options =>
         options.UseSqlServer(connectionString));
