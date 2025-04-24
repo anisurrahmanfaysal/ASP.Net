@@ -1,16 +1,18 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query;
-using News.Domain.Entities;
-using News.Domain.Repositories;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Dynamic.Core;
 using System.Linq.Expressions;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
-using System.Linq.Dynamic.Core;
+using Blog.Domain.Entities;
+using Blog.Domain.Repositories;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 
-namespace News.Infrastructure.Repositories
+
+namespace Blog.Infrastructure.Repositories
 {
     public abstract class Repository<TEntity, TKey>
         : IRepository<TEntity, TKey> where TKey : IComparable
