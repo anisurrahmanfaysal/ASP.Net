@@ -1,4 +1,4 @@
-﻿namespace Note.Web.Areas.Admin.Models
+﻿namespace News.Web.Areas.Admin.Models
 {
     public class AddBookModel
     {

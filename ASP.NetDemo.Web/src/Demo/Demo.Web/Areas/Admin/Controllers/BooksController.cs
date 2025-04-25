@@ -6,7 +6,8 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Demo.Web.Areas.Admin.Controllers
 {
-    [Area("Admin"), Authorize(Roles = "Admin,HR")]
+    [Area("Admin")]
+    //[Authorize(Roles = "Admin,HR")]
     public class BooksController : Controller
     {
         private readonly IBookService _bookService;
@@ -29,7 +30,7 @@ namespace Demo.Web.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                _bookService.AddBook(new Book { Title = model.Title });
+                //_bookService.AddBook(new Book { Title = model.Title });
             }
             return View(model);
         }

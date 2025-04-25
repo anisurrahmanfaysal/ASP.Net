@@ -10,16 +10,12 @@ using System.Threading.Tasks;
 
 namespace Note.Infrastructure
 {
-    public class UnitOfWork : IUnitOfWork
+    public abstract class UnitOfWork : IUnitOfWork
     {
         private readonly DbContext _dbContext;
-        public IBookRepository BookRepository { get; private set; }
-        public IAuthorRepository AuthorRepository { get; private set; }
-        public UnitOfWork(DbContext dbContext)
+        public UnitOfWork(DbContext context)
         {
-            _dbContext = dbContext;
-            BookRepository = new BookRepository((ApplicationDbContext) _dbContext);
-            AuthorRepository = new AuthorRepository((ApplicationDbContext) _dbContext);
+            _dbContext = context;
         }
         public void Save()
         {
