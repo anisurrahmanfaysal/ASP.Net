@@ -11,7 +11,8 @@ namespace Demo.Infrastructure
 {
     public class ApplicationUnitOfWork : UnitOfWork , IApplicationUnitOfWork
     {
-        public ApplicationUnitOfWork(ApplicationDbContext context, IBookRepository bookRepository, IAuthorRepository authorRepository) : base(context)
+        public ApplicationUnitOfWork(ApplicationDbContext context, IBookRepository bookRepository, 
+            IAuthorRepository authorRepository) : base(context)
         {
             BookRepository = bookRepository;
             AuthorRepository = authorRepository;

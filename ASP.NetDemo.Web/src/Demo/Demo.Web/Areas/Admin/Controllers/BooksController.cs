@@ -30,7 +30,7 @@ namespace Demo.Web.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                //_bookService.AddBook(new Book { Title = model.Title });
+                _bookService.AddBook(new Book { Title = model.Title });
             }
             return View(model);
         }
