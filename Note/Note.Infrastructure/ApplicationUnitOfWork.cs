@@ -9,16 +9,16 @@ using System.Threading.Tasks;
 
 namespace Note.Infrastructure
 {
-    internal class ApplicationUnitOfWork : UnitOfWork
+    public class ApplicationUnitOfWork : UnitOfWork , IApplicationUnitOfWork
     {
+        public IBookRepository BookRepository { get; private set; }
+        public IAuthorRepository AuthorRepository { get; private set; }
         public ApplicationUnitOfWork(ApplicationDbContext context, IBookRepository bookRepository,
-            IAuthorRepository authorRepository) : base(context)
+            IAuthorRepository authorRepository) 
+            : base(context)
         {
             BookRepository = bookRepository;
             AuthorRepository = authorRepository;
         }
-
-        public IBookRepository BookRepository { get; private set; }
-        public IAuthorRepository AuthorRepository { get; private set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Blog.Web.Areas.Admin.Models;
+﻿using Blog.Application.Services;
+using Blog.Web.Areas.Admin.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Blog.Web.Areas.Admin.Controllers
@@ -6,6 +7,11 @@ namespace Blog.Web.Areas.Admin.Controllers
     [Area("Admin")]
     public class BooksController : Controller
     {
+        private readonly BookService _bookService;
+        public BooksController(BookService bookService)
+        {
+            _bookService = bookService;
+        }
         public IActionResult Index()
         {
             return View();

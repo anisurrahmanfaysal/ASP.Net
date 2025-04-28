@@ -18,7 +18,7 @@ namespace Note.Application.Services
         }
         public void AddBook(Book book)
         {
-            throw new NotImplementedException();
+            _applicationUnitOfWork.BookRepository.Add(book);
         }
     }
 }

@@ -1,8 +1,13 @@
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Note.Infrastructure;
+using Note.Web;
 using Note.Web.Data;
 using Serilog;
 using Serilog.Events;
+using System.Reflection;
 
 var configuration = new ConfigurationBuilder()
                     .SetBasePath (Directory.GetCurrentDirectory ())
@@ -20,6 +25,14 @@ try
 
     // Add services to the container.
     var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+    var migrationAssembly = Assembly.GetExecutingAssembly ();
+
+    #region Autofac Configuration
+    builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory ());
+    builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder => {
+        containerBuilder.RegisterModule(new WebModule(connectionString, migrationAssembly.FullName));
+    });
+    #endregion
 
     #region Serilog Configuration
     builder.Host.UseSerilog((context, LockCookie) => LockCookie
@@ -31,7 +44,7 @@ try
     #endregion
 
     builder.Services.AddDbContext<ApplicationDbContext>(options =>
-        options.UseSqlServer(connectionString));
+        options.UseSqlServer(connectionString, (x) => x.MigrationsAssembly(migrationAssembly)));
     builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
     builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
