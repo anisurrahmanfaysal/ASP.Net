@@ -1,4 +1,6 @@
-﻿using Blog.Domain.Services;
+﻿using Blog.Domain;
+using Blog.Domain.Entities;
+using Blog.Domain.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,5 +11,14 @@ namespace Blog.Application.Services
 {
     public class BookService : IBookService
     {
+        private readonly IApplicationUnitOfWork _applicationUnitOfWork;
+        public BookService(IApplicationUnitOfWork applicationUnitOfWork)
+        {
+            _applicationUnitOfWork = applicationUnitOfWork;
+        }
+        public void AddBook(Book book)
+        {
+            _applicationUnitOfWork.BookRepository.Add(book);
+        }
     }
 }

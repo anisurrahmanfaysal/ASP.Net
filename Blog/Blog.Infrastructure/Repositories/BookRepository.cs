@@ -17,5 +17,10 @@ namespace Blog.Infrastructure.Repositories
         {
             _dbContext = context;
         }
+
+        public List<Book> GetLatestBooks()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

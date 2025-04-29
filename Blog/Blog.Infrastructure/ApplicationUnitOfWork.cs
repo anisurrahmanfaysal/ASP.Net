@@ -1,4 +1,5 @@
 ﻿using Blog.Domain;
+using Blog.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -10,8 +11,15 @@ namespace Blog.Infrastructure
 {
     public class ApplicationUnitOfWork : UnitOfWork , IApplicationUnitOfWork
     {
-        public ApplicationUnitOfWork(DbContext context) : base(context)
+        public ApplicationUnitOfWork(ApplicationDbContext context, IBookRepository bookRepository, 
+            IAuthorRepository authorRepository) : base(context)
         {
+            BookRepository = bookRepository;
+            AuthorRepository = authorRepository;
         }
+
+        public IBookRepository BookRepository { get; private set; }
+
+        public IAuthorRepository AuthorRepository { get; private set; }
     }
 }

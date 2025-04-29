@@ -1,4 +1,5 @@
-﻿using Blog.Application.Services;
+﻿using Blog.Domain.Entities;
+using Blog.Domain.Services;
 using Blog.Web.Areas.Admin.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,8 +8,8 @@ namespace Blog.Web.Areas.Admin.Controllers
     [Area("Admin")]
     public class BooksController : Controller
     {
-        private readonly BookService _bookService;
-        public BooksController(BookService bookService)
+        private readonly IBookService _bookService;
+        public BooksController(IBookService bookService)
         {
             _bookService = bookService;
         }
@@ -28,7 +29,7 @@ namespace Blog.Web.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-
+                _bookService.AddBook(new Book { Title = model.Title });
             }
             return View(model);
         }
