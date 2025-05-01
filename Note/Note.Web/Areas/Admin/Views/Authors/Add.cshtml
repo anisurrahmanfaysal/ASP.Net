@@ -30,15 +30,7 @@
         <div class="row g-4">
             <!--begin::Col-->
             <div class="col-12">
-                <div class="callout callout-info">
-                    For detailed documentation of Form visit
-                    <a href="https://getbootstrap.com/docs/5.3/forms/overview/"
-                       target="_blank"
-                       rel="noopener noreferrer"
-                       class="callout-link">
-                        Bootstrap Form
-                    </a>
-                </div>
+                <partial name="_ResponsePartial"/>
             </div>
             <!--end::Col-->
             <!--begin::Col-->
@@ -51,6 +43,7 @@
                     <!--begin::Form-->
                     <form asp-antiforgery="true" asp-area="Admin" asp-controller="Authors" asp-action="Add" method="post">
                         <!--begin::Body-->
+                        <div asp-validation-summary="All" class="text-danger"></div>
                         <div class="card-body">
                             <div class="mb-3">
                                 <label asp-for="Name" class="form-label">Author Name</label>
@@ -58,6 +51,7 @@
                                        class="form-control"
                                        asp-for="Name"
                                        aria-describedby="nameHelp" />
+                                <span asp-validation-for="Name" class="text-danger"></span>
                                 <div id="nameHelp" class="form-text">
                                     Provide author name.
                                 </div>
@@ -68,6 +62,7 @@
                                        class="form-control"
                                        asp-for="Biography"
                                        aria-describedby="biographyHelp" />
+                                <span asp-validation-for="Biography" class="text-danger"></span>
                                 <div id="biographyHelp" class="form-text">
                                     Provide your Biography
                                 </div>
@@ -78,6 +73,7 @@
                                        class="form-control"
                                        asp-for="Rating"
                                        aria-describedby="ratingHelp" />
+                                <span asp-validation-for="Rating" class="text-danger"></span>
                                 <div id="ratingHelp" class="form-text">
                                     Provide your Rating
                                 </div>
@@ -101,3 +97,8 @@
     <!--end::Container-->
 </div>
 <!--end::App Content-->
+
+@section Scripts{
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <partial name="_ValidationScriptsPartial"/>
+}

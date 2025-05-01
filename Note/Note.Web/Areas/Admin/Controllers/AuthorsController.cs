@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Demo.Domain;
 using Microsoft.AspNetCore.Mvc;
-using Note.Application.Services;
+using Note.Application.Exceptions;
 using Note.Domain.Entities;
 using Note.Domain.Services;
 using Note.Infrastructure;
@@ -49,6 +49,14 @@ namespace Note.Web.Areas.Admin.Controllers
 
                     return RedirectToAction("Index");
                 }
+                catch(DuplicateAuthorNameException de)
+                {
+                    TempData.Put("ResponseMessage", new ResponseModel
+                    {
+                        Message = de.Message,
+                        Type = ResponseTypes.Danger
+                    });
+                }
                 catch (Exception ex)
                 {
                     _logger.LogError(ex, "Failed to add author.");
@@ -58,7 +66,7 @@ namespace Note.Web.Areas.Admin.Controllers
                         Message = "Failed to Add Author",
                         Type = ResponseTypes.Danger
                     });
-                     return View(model);
+                    return View(model);
                 }
             }
             return View(model);

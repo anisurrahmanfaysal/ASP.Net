@@ -1,4 +1,5 @@
 ﻿using Demo.Domain;
+using Note.Application.Exceptions;
 using Note.Domain;
 using Note.Domain.Entities;
 using Note.Domain.Services;
@@ -19,8 +20,14 @@ namespace Note.Application.Services
         }
         public void AddAuthor(Author author)
         {
-            _applicationUnitOfWork.AuthorRepository.Add(author);
-            _applicationUnitOfWork.Save();
+            if (!_applicationUnitOfWork.AuthorRepository.IsNameDuplicate(author.Name))
+            {
+                _applicationUnitOfWork.AuthorRepository.Add(author);
+                _applicationUnitOfWork.Save();
+            }
+            else
+                throw new DuplicateAuthorNameException();
+            
         }
 
         public (IList<Author> data, int total, int totalDisplay) GetAuthors(int pageIndex, 
