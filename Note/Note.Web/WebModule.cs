@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Note.Application.Features.Books.Commands;
 using Note.Application.Services;
 using Note.Domain;
 using Note.Domain.Repositories;
@@ -32,6 +33,10 @@ namespace Note.Web
                 .InstancePerLifetimeScope();
             builder.RegisterType<BookService>().As<IBookService>()
                 .InstancePerLifetimeScope();
+            builder.RegisterType<AuthorService>().As<IAuthorService>()
+                .InstancePerLifetimeScope();
+
+            builder.RegisterType<BookAddCommand>().AsSelf();
             base.Load(builder);
         }
     }

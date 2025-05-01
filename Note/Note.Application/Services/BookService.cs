@@ -19,6 +19,7 @@ namespace Note.Application.Services
         public void AddBook(Book book)
         {
             _applicationUnitOfWork.BookRepository.Add(book);
+            _applicationUnitOfWork.Save();
         }
     }
 }

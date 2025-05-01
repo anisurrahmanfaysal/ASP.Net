@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Note.Domain
+namespace Note.Domain.Features.Books.Commands
 {
-    public interface IUnitOfWork
+    public interface IBookAddCommand
     {
-        void Save();
-        Task SaveAsync();
+        void Execute();
     }
 }

@@ -22,6 +22,9 @@ namespace Note.Infrastructure
             _dbContext.SaveChanges();
         }
 
-
+        public async Task SaveAsync()
+        {
+            await _dbContext.SaveChangesAsync();
+        }
     }
 }

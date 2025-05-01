@@ -2,6 +2,7 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Note.Application.Features.Books.Commands;
 using Note.Infrastructure;
 using Note.Web;
 using Note.Web.Data;
@@ -41,6 +42,17 @@ try
         .Enrich.FromLogContext()
         .ReadFrom.Configuration(builder.Configuration)
     );
+    #endregion
+
+    #region AutoMapper Configuration
+    builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+    #endregion
+
+    #region MediatR Configuration
+    builder.Services.AddMediatR(cfg => {
+        cfg.RegisterServicesFromAssembly(migrationAssembly);
+        cfg.RegisterServicesFromAssembly(typeof(BookAddCommand).Assembly);
+    });
     #endregion
 
     builder.Services.AddDbContext<ApplicationDbContext>(options =>
